@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Script file="Auc-Searcher-TMT-Locale.lua"/>
+	<Script file="Auc-Searcher-TMT.lua"/>
+	<Script>
+		AucAdvanced.RegisterRevision("$URL: https://github.com/telkar-rg/wow-Auc-Searcher-TMT/blob/1.0/Auc-Searcher-TMT/Embed.xml $", "$Rev: 10 $")
+	</Script>
+</Ui>

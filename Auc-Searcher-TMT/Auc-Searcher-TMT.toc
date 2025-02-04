@@ -1,0 +1,11 @@
+## Interface: 30300
+## Title: Auc:Searcher: Transmog-Tracker (1.0)
+## Notes: Allows searching Auctioneer data for Transmog visuals
+## Notes-deDE: Ermöglicht Durchsuchen von Auctioneer-Daten nach Transmog-Aussehen
+## Author: Cal Henderson (Bees on Hyjal-US), Telkar (RG-EU)
+## Version: 1.0
+## LoadOnDemand: 0
+## Disabled: 0
+## Dependencies: Auc-Advanced, TransmogTracker
+
+Embed.xml
