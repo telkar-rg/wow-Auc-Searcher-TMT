@@ -21,3 +21,6 @@ Original by [iamcal](https://github.com/iamcal/wow-Auc-Searcher-Insane).
 ## Changes
 
 ### [Auc-Searcher-TMT 1.0](https://github.com/telkar-rg/wow-Auc-Searcher-TMT/releases/tag/1.0)
+- Separate Searcher-Plugin for the Auctioneer Addon
+- Limited to Weapons and Armor
+- Differentiates for items with completely and partially unknown Transmog Visuals
