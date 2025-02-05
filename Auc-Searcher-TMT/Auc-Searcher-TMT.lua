@@ -13,9 +13,8 @@ if not L then
 	return
 end
 
-local TMT = _G["TransmogTracker"]
+local TMT = TransmogTracker
 if not TMT then return end
-
 
 
 function private.getTypes()
@@ -224,23 +223,26 @@ function lib.Search(item)
 		
 		if item[Const.ITEMID] == 49916 then return false, "nope" end
 		
-		local itemid = item[Const.ITEMID];
+		local itemId = item[Const.ITEMID];
 		
-		local known = TransmogTracker:checkItemId(itemId)
-		if known then print(-1) return false, "nope" end
+		local tmt_known_1 = TMT:checkItemId(itemId)
+		if tmt_known_1 then
+			-- print(-1, itemId, item[Const.LINK])
+			return false, "nope"
+		end
 		
-		local knownOther = TransmogTracker:checkUniqueId(itemId)
-		if knownOther  then
+		local tmt_known_2 = TMT:checkUniqueId(itemId)
+		if tmt_known_2  then
 			if get("generalTMT.hidePartial") then 
-				print(-2)
+				-- print(-2, itemId, item[Const.LINK])
 				return false, "nope"
 			end
 			
-			print(1,item[Const.LINK])
+			-- print(1, itemId, item[Const.LINK])
 			return "1"
 		end
 		
-			print(2,item[Const.LINK], TransmogTracker:checkItemId(itemId), itemid, type(itemid))
+		-- print(2, itemId, item[Const.LINK])
 		return "2"
 	else
 		return false, private.debug
