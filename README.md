@@ -1,18 +1,23 @@
-WotLK 3.3.5 Auctioneer plugin for search for Darkmoon Faire rep items.
+WotLK 3.3.5 Auctioneer plugin for search for items with unknown Transmog Visuals on the Rising-Gods Realm
 
 Original by [iamcal](https://github.com/iamcal/wow-Auc-Searcher-Insane).
 
-# wow-Auc-Searcher: Darkmoon Faire Cards
+# wow-Auc-Searcher: Transmog Tracker Visuals
 
-<img src="https://raw.githubusercontent.com/telkar-rg/wow-Auc-Searcher-DMF/master/_IMG/1.png" align="center" width="75%"> 
+<img src="https://raw.githubusercontent.com/telkar-rg/wow-Auc-Searcher-TMT/refs/heads/main/_IMG/1.png" align="center" width="75%"> 
 
-<img src="https://raw.githubusercontent.com/telkar-rg/wow-Auc-Searcher-DMF/master/_IMG/2.png" align="center" width="75%"> 
+<details>
+  <summary>Display of item with completely unknown Transmog Visual</summary>
+  
+  ![Mouseover Key Label](https://github.com/telkar-rg/wow-Auc-Searcher-TMT/blob/main/_IMG/2.png?raw=true)
+</details>
+<details>
+  <summary>Display of item with partially unknown Transmog Visual</summary>
+  
+  ![Mouseover Key Label](https://github.com/telkar-rg/wow-Auc-Searcher-TMT/blob/main/_IMG/3.png?raw=true)
+</details>
+
 
 ## Changes
-### [Auc-Searcher-DMF 1.5](https://github.com/telkar-rg/wow-Auc-Searcher-DMF/releases/tag/1.5) (2024-08-29)
-- Renamed to 'Auc-Searcher-DMF'
-- Rearranged search tab layout
-- Added greater search selection options
 
-### [Auc-Searcher-Insane 1.4](https://github.com/iamcal/wow-Auc-Searcher-Insane) (2010-11-28)
-- Latest version by iamcal
+### [Auc-Searcher-TMT 1.0](https://github.com/telkar-rg/wow-Auc-Searcher-TMT/releases/tag/1.0)
