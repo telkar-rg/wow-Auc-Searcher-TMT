@@ -20,6 +20,8 @@ Original by [iamcal](https://github.com/iamcal/wow-Auc-Searcher-Insane).
 
 ## Changes
 
+### [Auc-Searcher-TMT 1.1](https://github.com/telkar-rg/wow-Auc-Searcher-TMT/releases/tag/1.1)
+- Made addon title easier to search ("TMT")
 ### [Auc-Searcher-TMT 1.0](https://github.com/telkar-rg/wow-Auc-Searcher-TMT/releases/tag/1.0)
 - Separate Searcher-Plugin for the Auctioneer Addon
 - Limited to Weapons and Armor
