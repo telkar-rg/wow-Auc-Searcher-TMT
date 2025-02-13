@@ -1,6 +1,6 @@
 *.temp
 _Releases/*
-Git wow-Auc-Searcher-DMF.lnk
+*.lnk
 
 # Compiled Lua sources
 luac.out
