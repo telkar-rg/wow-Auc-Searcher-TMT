@@ -16,6 +16,106 @@ end
 local TMT = TransmogTracker
 if not TMT then return end
 
+local _, PlayerClassEN = UnitClass("player")
+-- local tmog_itemSubClasses = lib.Const[1]
+
+local tmog_allowed = {
+	["ALL"] = {
+		["INVTYPE_HEAD"] 		= 1,
+		["INVTYPE_SHOULDER"] 	= 1,
+		["INVTYPE_BODY"] 		= 1,
+		["INVTYPE_CHEST"] 		= 1,
+		["INVTYPE_ROBE"] 		= 1,
+		["INVTYPE_WAIST"] 		= 1,
+		["INVTYPE_LEGS"] 		= 1,
+		["INVTYPE_FEET"] 		= 1,
+		["INVTYPE_WRIST"] 		= 1,
+		["INVTYPE_HAND"] 		= 1,
+		["INVTYPE_CLOAK"] 		= 1,
+		["INVTYPE_WEAPON"] 		= 1,
+		["INVTYPE_2HWEAPON"] 	= 1,
+		["INVTYPE_WEAPONMAINHAND"] 	= 1,
+	},
+	["WARRIOR"] = {
+		["INVTYPE_WEAPONOFFHAND"] 	= 1,
+		["INVTYPE_RANGEDRIGHT"] 	= 1, -- needs 2nd check
+		["INVTYPE_SHIELD"] 	= 1,
+		["INVTYPE_RANGED"] 	= 1,
+		["INVTYPE_THROWN"] 	= 1,
+	},
+	["DEATHKNIGHT"] = {
+		["INVTYPE_WEAPONOFFHAND"] 	= 1,
+	},
+	["PALADIN"] = {
+		["INVTYPE_SHIELD"] 	= 1,
+	},
+	["PRIEST"] = {
+		["INVTYPE_HOLDABLE"] 	= 1,
+		["INVTYPE_RANGEDRIGHT"] = 1, -- needs 2nd check
+	},
+	["SHAMAN"] = {
+		["INVTYPE_SHIELD"] 	= 1,
+		["INVTYPE_WEAPONOFFHAND"] 	= 1,
+	},
+	["DRUID"] = {
+		["INVTYPE_HOLDABLE"] 	= 1
+	},
+	["ROGUE"] = {
+		["INVTYPE_WEAPONOFFHAND"] 	= 1,
+		["INVTYPE_RANGED"] 	= 1,
+		["INVTYPE_THROWN"] 	= 1,
+		["INVTYPE_RANGEDRIGHT"] = 1, -- needs 2nd check
+	},
+	["MAGE"] = {
+		["INVTYPE_HOLDABLE"] 	= 1,
+		["INVTYPE_RANGEDRIGHT"] = 1,
+	},
+	["WARLOCK"] = {
+		["INVTYPE_HOLDABLE"] 	= 1,
+		["INVTYPE_RANGEDRIGHT"] = 1, -- needs 2nd check
+	},
+	["HUNTER"] = {
+		["INVTYPE_WEAPONOFFHAND"] 	= 1,
+		["INVTYPE_RANGED"] 	= 1,
+		["INVTYPE_THROWN"] 	= 1,
+		["INVTYPE_RANGEDRIGHT"] 	= 1, -- needs 2nd check
+	},
+	["GUNS_CROSSBOWS"] = {
+		["HUNTER"] 	= 1,
+		["ROGUE"] 	= 1,
+		["WARRIOR"] = 1,
+	},
+	["WANDS"] = {
+		["PRIEST"] 	= 1,
+		["MAGE"] 	= 1,
+		["WARLOCK"] = 1,
+	},
+}
+
+local tex_1, tex_2, tex_3
+do
+	local size1,size2,xoffset,yoffset,dimx,dimy,coordx1,coordx2,coordy1,coordy2
+	local path = "Interface\\Minimap\\TRACKING\\OBJECTICONS"
+	size1 = 20
+	size2 = 20
+	xoffset,yoffset = 0,0
+	dimx,dimy = 256,64
+	coordx1 = 70
+	coordx2 = coordx1 + 20
+	coordy1 = 6
+	coordy2 = coordy1 + 20
+	
+	tex_1 = "\124TInterface\\TargetingFrame\\UI-RaidTargetingIcon_6:0\124t" 	-- Square
+	tex_2 = "\124TInterface\\TargetingFrame\\UI-RaidTargetingIcon_2:0\124t" 	-- Circle
+	tex_3 = format("\124T%s:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d\124t", path, size1, size2, xoffset, yoffset, dimx, dimy, coordx1, coordx2, coordy1, coordy2)
+	coordx1 = 70 + 32
+	coordx2 = coordx1 + 20
+	tex_2 = format("\124T%s:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d\124t", path, size1, size2, xoffset, yoffset, dimx, dimy, coordx1, coordx2, coordy1, coordy2)
+	coordx1 = 70 + 64
+	coordx2 = coordx1 + 20
+	tex_1 = format("\124T%s:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d\124t", path, size1, size2, xoffset, yoffset, dimx, dimy, coordx1, coordx2, coordy1, coordy2)
+end
+
 
 function private.getTypes()
 	if not private.typetable then
@@ -85,6 +185,9 @@ function private.getTimeLeft()
 			{4, AUCTION_DURATION_THREE},
 		}
 end
+
+
+
 
 -- Set our defaults
 default("generalTMT.name", "")
@@ -225,25 +328,39 @@ function lib.Search(item)
 		
 		local itemId = item[Const.ITEMID];
 		
-		local tmt_known_1 = TMT:checkItemId(itemId)
-		if tmt_known_1 then
-			-- print(-1, itemId, item[Const.LINK])
+		local tmogState
+		if TMT:checkItemId(itemId) then
+			tmogState = 1 -- we know it
 			return false, "nope"
-		end
-		
-		local tmt_known_2 = TMT:checkUniqueId(itemId)
-		if tmt_known_2  then
+		elseif TMT:checkUniqueId(itemId) then
+			tmogState = 2 -- we know it through others
 			if get("generalTMT.hidePartial") then 
 				-- print(-2, itemId, item[Const.LINK])
 				return false, "nope"
 			end
-			
-			-- print(1, itemId, item[Const.LINK])
-			return "1"
+		else
+			tmogState = 3 -- we dont know it
 		end
 		
+		if item[Const.IEQUIP] == 15 then
+			if ( item[Const.ISUB] == AucAdvanced.Const.SUBCLASSES[1][16] ) then -- if WAND
+				if not tmog_allowed.WANDS[PlayerClassEN] then
+					-- print("this class", PlayerClassEN, "cannot tmog", itemSubType)
+					return false, "nope"
+				end
+			else -- if GUNS CROSSBOWS
+				if not tmog_allowed.GUNS_CROSSBOWS[PlayerClassEN] then
+					-- print("this class", PlayerClassEN, "cannot tmog", itemSubType)
+					return false, "nope"
+				end
+			end
+		end
+		
+		if tmogState == 2 then return tex_2 end
+		if tmogState == 3 then return tex_3 end
+		
 		-- print(2, itemId, item[Const.LINK])
-		return "2"
+		return 1
 	else
 		return false, private.debug
 	end
