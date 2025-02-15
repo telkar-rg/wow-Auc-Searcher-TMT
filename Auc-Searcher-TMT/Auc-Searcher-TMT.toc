@@ -1,4 +1,4 @@
-## Title: Auc:Searcher: |cFF40FFFF|HTMT|hTransmog-Tracker|h|r (1.1)
+## Title: Auc:Searcher: |cFF40FFFF|HTMT|hTransmog-Tracker|h|r (1.2)
 ## Interface: 30300
 ## Notes: Allows searching Auctioneer data for Transmog visuals
 ## Notes-deDE: Ermöglicht Durchsuchen von Auctioneer-Daten nach Transmog-Aussehen
